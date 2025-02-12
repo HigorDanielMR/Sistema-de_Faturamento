@@ -1,0 +1,15 @@
+# Ignorar a pasta .vs (Visual Studio)
+.vs/
+
+# Ignorar arquivos de configuração do Visual Studio
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Ignorar arquivos binários e de build
+bin/
+obj/
+
+# Ignorar arquivos de cache do Rider (caso use)
+.idea/
