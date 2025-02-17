@@ -1,5 +1,5 @@
-﻿using Sistema.Domain.Interfaces;
-using Sistema.Domain.Entities;
+﻿using System.Domain.Interfaces;
+using System.Domain.Entities;
 
 namespace System.Infra.Services;
 

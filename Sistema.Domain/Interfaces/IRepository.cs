@@ -1,4 +1,4 @@
-﻿namespace Sistema.Domain.Interfaces;
+﻿namespace System.Domain.Interfaces;
 
 public interface IRepository<T>
 {

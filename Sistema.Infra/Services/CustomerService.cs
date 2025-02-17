@@ -1,7 +1,7 @@
-﻿using Sistema.Domain.Interfaces;
-using Sistema.Domain.Entities;
+﻿using System.Domain.Interfaces;
+using System.Domain.Entities;
 
-namespace Sistema.Infra.Services;
+namespace System.Infra.Services;
 
 public class CustomerService :  IRepository<Customer>
 {

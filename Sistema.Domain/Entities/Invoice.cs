@@ -1,4 +1,5 @@
-﻿namespace Sistema.Domain.Entities;
+﻿namespace System.Domain.Entities;
+
 public class Invoice
 {
     public int ID { get; set; }

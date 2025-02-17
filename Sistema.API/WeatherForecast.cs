@@ -1,4 +1,4 @@
-namespace Sistema.API
+namespace System.API
 {
     public class WeatherForecast
     {
