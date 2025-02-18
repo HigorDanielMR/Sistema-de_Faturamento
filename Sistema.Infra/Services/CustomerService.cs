@@ -1,32 +1,48 @@
-﻿using System.Domain.Interfaces;
+﻿using System.Infra.Repositories;
+using System.Domain.Interfaces;
 using System.Domain.Entities;
 
 namespace System.Infra.Services;
 
 public class CustomerService :  IRepository<Customer>
 {
-    public List<Customer> GetAll()
+    private CustomerRepository _repository;
+
+    public CustomerService(CustomerRepository repository)
     {
-        throw new NotImplementedException();
+        _repository = repository;
     }
 
-    public Customer GetID(int ItemId)
+    public async Task<Customer> Create(Customer customer)
     {
-        throw new NotImplementedException();
+        var newCustomer = await _repository.Create(customer);
+
+        return newCustomer;
     }
 
-    public void Remove(int RemovalId)
+    public async Task<List<Customer>> GetAll()
     {
-        throw new NotImplementedException();
+        var allCustomer = await _repository.GetAll();
+
+        return allCustomer;
     }
 
-    public Customer Update(Customer obj)
+    public async Task<Customer> GetID(int itemId)
     {
-        throw new NotImplementedException();
+        var customerDb = await _repository.GetID(itemId);
+
+        return customerDb;
     }
 
-    public Customer Create(Customer obj)
+    public async void Remove(int removalId)
     {
-        throw new NotImplementedException();
+        _repository.Remove(removalId);
+    }
+
+    public async Task<Customer> Update(Customer customer)
+    {
+        var customerDb = await _repository.Update(customer);
+
+        return customerDb;
     }
 }

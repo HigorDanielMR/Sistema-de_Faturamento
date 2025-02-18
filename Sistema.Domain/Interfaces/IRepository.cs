@@ -2,9 +2,9 @@
 
 public interface IRepository<T>
 {
-    List<T> GetAll();
-    T Create(T obj);
-    T GetID(int ItemId);
-    T Update(T obj);
+    Task<List<T>> GetAll();
+    Task<T> Create(T obj);
+    Task<T> GetID(int ItemId);
+    Task<T> Update(T obj);
     void Remove(int RemovalId);
 }

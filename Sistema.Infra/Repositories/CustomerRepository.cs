@@ -1,33 +1,30 @@
-﻿using System.Infra.DBConnection;
+﻿using System.Domain.Validations;
+using System.Infra.DBConnection;
 using System.Domain.Interfaces;
 using System.Domain.Entities;
-using System.Infra.Services;
-using System.Domain.Validations;
 using LinqToDB;
 
 namespace System.Infra.Repositories;
 
 public class CustomerRepository : IRepository<Customer>
 {
-    private Connection _connection;
-    private CustomerService _customerService;
     private CustomerValidation _customerValidation;
+    private Connection _connection;
 
-    public CustomerRepository(Connection connection, CustomerService customerService, CustomerValidation customerValidation)
+    public CustomerRepository(Connection connection, CustomerValidation customerValidation)
     {
-        _connection = connection;
-        _customerService = customerService;
         _customerValidation = customerValidation;
+        _connection = connection;
     }
 
-    public Customer Create(Customer customer)
+    public async Task<Customer> Create(Customer customer)
     {
         customer.ID = _connection.InsertWithInt32Identity(customer);
 
         return customer;
     }
 
-    public List<Customer> GetAll()
+    public async Task<List<Customer>> GetAll()
     {
         var query = from customer in _connection.Customers
                     where customer.ID > 0
@@ -36,22 +33,34 @@ public class CustomerRepository : IRepository<Customer>
         return query.ToList();
     }
 
-    public Customer GetID(int ItemId)
+    public async Task<Customer> GetID(int itemId)
     {
         var query = from customer in _connection.Customers
-                    where customer.ID == ItemId
+                    where customer.ID == itemId
                     select customer;
 
-        return query.FirstOrDefault() ?? throw new Exception($"Customer with ID {ItemId} not found.");
+        return query.FirstOrDefault() ?? throw new Exception($"Customer with ID {itemId} not found.");
     }
 
-    public void Remove(int RemovalId)
+    public async void Remove(int removalId)
     {
-        throw new NotImplementedException();
+        var customerDb = await GetID(removalId);
+
+        _connection.Delete(customerDb);
     }
 
-    public Customer Update(Customer obj)
+    public async Task<Customer> Update(Customer customer)
     {
-        throw new NotImplementedException();
+        var customerDb = await GetID(customer.ID);
+
+        customerDb.Name = customer.Name;
+        customerDb.CPF = customer.CPF;
+        customerDb.CNPJ = customer.CNPJ;
+        customerDb.Payments = customer.Payments;
+        customerDb.PersonType = customer.PersonType;
+
+        _connection.Update(customerDb);
+
+        return customerDb;
     }
 }

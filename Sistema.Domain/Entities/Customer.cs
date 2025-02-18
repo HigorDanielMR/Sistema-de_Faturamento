@@ -1,10 +1,14 @@
-﻿namespace System.Domain.Entities;
+﻿using System.Domain.Enum;
+
+namespace System.Domain.Entities;
 
 public class Customer
 {
     public int ID { get; set; }
     public string Name { get; set; }
     public string CPF { get; set; }
+    public string CNPJ { get; set; }
+    public PersonType PersonType { get; set; }
     public DateTime RegistrationDate { get; set; }
     public DateTime LastPaymentDate { get; set; }
     public List<Invoice> Payments { get; set; }
